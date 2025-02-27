@@ -19,7 +19,7 @@ Simply add the gradle plugin to your `build.gradle(.kts)`:
 
 ```kotlin
 plugins {
-    id("me.nathanfallet.kotlinjsinterfacefix") version "1.0.0"
+    id("me.nathanfallet.kotlinjsinterfacefix") version "1.0.1"
 }
 ```
 

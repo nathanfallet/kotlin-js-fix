@@ -15,6 +15,7 @@ abstract class ExportJsInterfaces : AbstractPostProcessingTask(".mjs") {
         val newLines = mutableListOf<String>()
         val interfaces = mutableSetOf<String>()
         var exportFound = false
+        var exportDone = false
 
         oldLines.forEachIndexed { index, line ->
             // Detect interfaces
@@ -23,7 +24,10 @@ abstract class ExportJsInterfaces : AbstractPostProcessingTask(".mjs") {
 
             // Detect export block
             if (line.startsWith("export {")) exportFound = true
-            else if (exportFound && line.startsWith("};")) interfaces.forEach { newLines.add("  $it as $it,") }
+            else if (exportFound && !exportDone && line.startsWith("};")) {
+                interfaces.forEach { newLines.add("  $it as $it,") }
+                exportDone = true // Don't do it again (in case of multiple export blocks)
+            }
 
             newLines.add(line)
         }
