@@ -2,7 +2,7 @@ package me.nathanfallet.kotlinjsinterfacefix
 
 import me.nathanfallet.kotlinjsinterfacefix.extensions.KotlinJsInterfaceFixExtension
 import me.nathanfallet.kotlinjsinterfacefix.tasks.AbstractPostProcessingTask
-import me.nathanfallet.kotlinjsinterfacefix.tasks.ExportJsInterfaces
+import me.nathanfallet.kotlinjsinterfacefix.tasks.ExportMjsInterfaces
 import me.nathanfallet.kotlinjsinterfacefix.tasks.RemoveDoNotUseOrImplementIt
 import org.gradle.api.Plugin
 import org.gradle.api.Project
@@ -32,10 +32,13 @@ abstract class KotlinJsInterfaceFix : Plugin<Project> {
         tasks.forEach { task ->
             if (task !is Kotlin2JsCompile) return@forEach
 
-            if (extension.exportJsInterfaces.get())
-                setupTask<ExportJsInterfaces>(task.name, "exportJsInterfaces")
-            if (extension.removeDoNotUseOrImplementIt.get())
+            if (extension.exportJsInterfaces.get()) {
+                setupTask<ExportMjsInterfaces>(task.name, "exportMjsInterfaces")
+                // TODO: ExportCjsInterfaces (for CommonJS, with .js/.cjs extension)
+            }
+            if (extension.removeDoNotUseOrImplementIt.get()) {
                 setupTask<RemoveDoNotUseOrImplementIt>(task.name, "removeDoNotUseOrImplementIt")
+            }
         }
     }
 

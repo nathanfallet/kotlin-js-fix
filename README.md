@@ -13,6 +13,8 @@ The idea was to fix [KT-75584](https://youtrack.jetbrains.com/issue/KT-75584)
 and [KT-56618](https://youtrack.jetbrains.com/issue/KT-56618) easily, without
 having to wait for JetBrains to fix it in the Compiler.
 
+> Note: This plugin only works with `useEsModules()` for now. `useCommonJs()` is not supported.
+
 ## Add the plugin to your project
 
 Simply add the gradle plugin to your `build.gradle(.kts)`:

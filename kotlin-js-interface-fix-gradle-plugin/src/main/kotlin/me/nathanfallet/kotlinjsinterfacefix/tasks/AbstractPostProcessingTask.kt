@@ -8,8 +8,10 @@ import java.io.File
 
 abstract class AbstractPostProcessingTask(
     @Internal
-    val extension: String,
+    val fileExtensions: List<String>,
 ) : DefaultTask() {
+
+    constructor(vararg fileExtensions: String) : this(fileExtensions.toList())
 
     @get:InputFiles
     abstract val inputFiles: ConfigurableFileCollection
@@ -22,7 +24,11 @@ abstract class AbstractPostProcessingTask(
 
     @Internal
     protected fun getFilesToProcess(): List<File> = inputFiles.flatMap { file ->
-        file.walk().filter { it.name.endsWith(extension) }
+        file.walk().filter {
+            fileExtensions.any { extension ->
+                it.name.endsWith(extension)
+            }
+        }
     }
 
 }
