@@ -51,7 +51,6 @@ abstract class ExportMjsInterfaces : AbstractPostProcessingTask(".mjs") {
             newLines.add("};")
         }
 
-        // Write the modified content back
         file.writeText(newLines.joinToString("\n"))
     }
 

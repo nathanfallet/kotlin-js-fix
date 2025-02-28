@@ -1,9 +1,7 @@
 package me.nathanfallet.kotlinjsinterfacefix
 
 import me.nathanfallet.kotlinjsinterfacefix.extensions.KotlinJsInterfaceFixExtension
-import me.nathanfallet.kotlinjsinterfacefix.tasks.AbstractPostProcessingTask
-import me.nathanfallet.kotlinjsinterfacefix.tasks.ExportMjsInterfaces
-import me.nathanfallet.kotlinjsinterfacefix.tasks.RemoveDoNotUseOrImplementIt
+import me.nathanfallet.kotlinjsinterfacefix.tasks.*
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.create
@@ -22,6 +20,7 @@ abstract class KotlinJsInterfaceFix : Plugin<Project> {
 
     private fun Project.configureExtensions() {
         val extension = extensions.create<KotlinJsInterfaceFixExtension>("kotlinjsinterfacefix")
+        extension.flattenCjsExports.convention(false)
         extension.exportJsInterfaces.convention(true)
         extension.removeDoNotUseOrImplementIt.convention(true)
     }
@@ -32,6 +31,10 @@ abstract class KotlinJsInterfaceFix : Plugin<Project> {
         tasks.forEach { task ->
             if (task !is Kotlin2JsCompile) return@forEach
 
+            if (extension.flattenCjsExports.get()) {
+                setupTask<FlattenCjsExports>(task.name, "flattenCjsExports")
+                setupTask<FlattenCtsExports>(task.name, "flattenCtsExports")
+            }
             if (extension.exportJsInterfaces.get()) {
                 setupTask<ExportMjsInterfaces>(task.name, "exportMjsInterfaces")
                 // TODO: ExportCjsInterfaces (for CommonJS, with .js/.cjs extension)
@@ -50,6 +53,10 @@ abstract class KotlinJsInterfaceFix : Plugin<Project> {
         tasks.register<T>(taskName) {
             group = buildGroup
             dependsOn(compileTask)
+            if (name == "exportCjsInterfaces") {
+                val flattenTaskName = "flattenCjsExportsFor" + compileTask.replaceFirstChar { it.uppercase() }
+                if (tasks.names.contains(flattenTaskName)) dependsOn(flattenTaskName)
+            }
             inputFiles.from(project.tasks.named(compileTask).get().outputs.files)
         }
         tasks.named(compileTask) {

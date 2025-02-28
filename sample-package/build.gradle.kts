@@ -33,6 +33,7 @@ kotlin {
 }
 
 kotlinjsinterfacefix {
+    flattenCjsExports = false // Optional, default is false
     exportJsInterfaces = true // Optional, default is true
     removeDoNotUseOrImplementIt = true // Optional, default is true
 }
