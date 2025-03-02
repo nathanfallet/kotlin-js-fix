@@ -7,7 +7,7 @@ plugins {
 }
 
 allprojects {
-    group = "me.nathanfallet.kotlinjsinterfacefix"
+    group = "me.nathanfallet.kotlinjsfix"
     version = "1.0.1"
 
     repositories {

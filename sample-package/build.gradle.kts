@@ -1,6 +1,6 @@
 plugins {
     kotlin("multiplatform")
-    id("me.nathanfallet.kotlinjsinterfacefix")
+    id("me.nathanfallet.kotlinjsfix")
 }
 
 kotlin {
@@ -32,8 +32,8 @@ kotlin {
     }
 }
 
-kotlinjsinterfacefix {
+kotlinjsfix {
     flattenCjsExports = false // Optional, default is false
-    exportJsInterfaces = true // Optional, default is true
-    removeDoNotUseOrImplementIt = true // Optional, default is true
+    exportJsInterfaces = true // Optional, default is false
+    removeDoNotUseOrImplementIt = true // Optional, default is false
 }
