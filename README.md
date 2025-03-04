@@ -5,9 +5,10 @@
 [![Pull Requests](https://img.shields.io/github/issues-pr/nathanfallet/kotlin-js-fix)]()
 [![Code Size](https://img.shields.io/github/languages/code-size/nathanfallet/kotlin-js-fix)]()
 
-A simple Gradle plugin to fix Kotlin/JS interfaces issues.
+A simple Gradle plugin to fix for Kotlin/JS compiler issues.
 
-It allows to export Kotlin/JS interfaces to JavaScript, and use them in TypeScript without __doNotUseOrImplementIt.
+It allows to temporarily fix Kotlin/JS compiler, like export interfaces to JS and use them in TypeScript without __
+doNotUseOrImplementIt.
 
 The idea was to fix [KT-56618](https://youtrack.jetbrains.com/issue/KT-56618),
 [KT-75584](https://youtrack.jetbrains.com/issue/KT-75584) and [KT-75592](https://youtrack.jetbrains.com/issue/KT-75592)

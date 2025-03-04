@@ -24,9 +24,9 @@ gradlePlugin {
         create("kotlin-js-fix-gradle-plugin") {
             id = "me.nathanfallet.kotlinjsfix"
             implementationClass = "me.nathanfallet.kotlinjsfix.KotlinJsFix"
-            displayName = "A fix for Kotlin/JS interfaces"
+            displayName = "A fix for Kotlin/JS compiler"
             description =
-                "Allows to export Kotlin/JS interfaces to JavaScript, and use them in TypeScript without __doNotUseOrImplementIt"
+                "Allows to temporarily fix Kotlin/JS compiler, like export interfaces to JS and use them in TypeScript without __doNotUseOrImplementIt"
             tags = listOf("kotlin", "js", "interface", "fix")
         }
     }
